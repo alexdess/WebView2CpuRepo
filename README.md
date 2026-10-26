@@ -39,7 +39,7 @@ Manager shows it. The WebView2 browser processes are not included.
 
 | Option | Effect |
 |---|---|
-| `--software` | Forces WPF software rendering (`RenderMode.SoftwareOnly`), to reproduce the RDP case on a machine with a GPU |
+| `--software` | Forces WPF software rendering (`RenderMode.SoftwareOnly`). It does **not** reproduce the RDP case: on a machine with a GPU the composition control stays near 0 % even with this flag, so measure in a real RDP session on a host without GPU |
 | `--auto` | Starts the automatic run at startup |
 | `--exit` | Closes the app at the end of the automatic run |
 
