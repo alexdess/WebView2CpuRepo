@@ -46,11 +46,23 @@ Manager shows it. The WebView2 browser processes are not included.
 ## Results
 
 Windows Server 2022 (20348), RDP session, 8 cores, WPF tier 0, WebView2 Runtime
-155.0.4283.62, .NET 10.0.11. Two runs, identical within 0.6 point:
+155.0.4283.62, .NET 10.0.11:
 
 | Host | Foreground | Minimized |
 |---|---|---|
 | Plain WPF | 0.1 % | 0.3 % |
 | WebView2 (HwndHost) | 0.0 % | 0.0 % |
-| WebView2CompositionControl | 14 % | 8.5 % |
-| BlazorWebView .NET 10 | 18 % | 11 % |
+| WebView2CompositionControl | 12.5 to 14 % | 6.8 to 8.8 % |
+| BlazorWebView 10.0.110, window opened alone | 15.6 % | |
+| BlazorWebView 9.0.120 (HWND `WebView2`), window opened alone | 0.4 % | |
+
+Builds before the one that disposes each host on close charged the
+`WebView2CompositionControl` cost to the next measure of the automatic run: with no test
+window open, the process went from 0.1 % to 5.0 % once that window had been opened and
+closed. The BlazorWebView rows above were measured with the window opened alone, in a
+freshly started app.
+
+The same build in a Windows 11 (26100) Windows Sandbox with `<vGPU>Disable</vGPU>`, also an
+RDP session at WPF tier 0, shows 0.2 core for `WebView2CompositionControl` instead of 1.1:
+an RDP session without GPU is not enough, something of the Windows Server 2022 host is
+needed, the OS build being the first candidate.

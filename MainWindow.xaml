@@ -18,7 +18,7 @@
             <Button Content="Plain WPF" Tag="WpfOnly" Click="OnOpenClick" Padding="8,4" Margin="0,0,8,0" />
             <Button Content="WebView2 (HwndHost)" Tag="WebView2Classic" Click="OnOpenClick" Padding="8,4" Margin="0,0,8,0" />
             <Button Content="WebView2CompositionControl" Tag="WebView2Composition" Click="OnOpenClick" Padding="8,4" Margin="0,0,8,0" />
-            <Button Content="BlazorWebView .NET 10" Tag="BlazorWebView" Click="OnOpenClick" Padding="8,4" />
+            <Button Content="BlazorWebView" Tag="BlazorWebView" Click="OnOpenClick" Padding="8,4" />
         </WrapPanel>
 
         <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,12">

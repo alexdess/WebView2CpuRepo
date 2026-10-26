@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.AspNetCore.Components.WebView.Wpf;
@@ -28,9 +29,32 @@ public sealed class HostWindow : Window
             HostMode.BlazorWebView => BuildBlazorWebView(),
             _ => throw new ArgumentOutOfRangeException(nameof(mode)),
         };
+        Closed += OnClosed;
     }
 
     public HostMode Mode { get; }
+
+    // WebView2CompositionControl keeps capturing after its window closes until it is disposed,
+    // which would charge its CPU to the next measure of the automatic run.
+    private async void OnClosed(object? sender, EventArgs e)
+    {
+        try
+        {
+            switch (Content)
+            {
+                case IAsyncDisposable asyncDisposable:
+                    await asyncDisposable.DisposeAsync();
+                    break;
+                case IDisposable disposable:
+                    disposable.Dispose();
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Disposing the {Mode} host failed: {ex}");
+        }
+    }
 
     private static IServiceProvider BuildBlazorServices()
     {
