@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Components.Web
+
+<style>@TestContent.CSS</style>
+<h2>Static page</h2>
+<input @ref="_search" placeholder="Search a contact..." />
+<table>
+    <tr><th>Client</th><th>City</th></tr>
+    @foreach (var (client, city) in TestContent.Rows())
+    {
+        <tr><td>@client</td><td>@city</td></tr>
+    }
+</table>
+
+@code {
+    private ElementReference _search;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _search.FocusAsync();
+        }
+    }
+}

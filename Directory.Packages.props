@@ -1,0 +1,6 @@
+<!-- Keeps a parent Central Package Management setup from applying: the project pins its own versions. -->
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,3 @@
+<!-- Keeps MSBuild from importing props of any parent directory: the project is self-contained. -->
+<Project>
+</Project>
